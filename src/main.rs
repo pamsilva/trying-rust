@@ -29,14 +29,18 @@ fn take_user_guess() -> u32 {
 }
 
 fn play(val: u32) {
+    let mut counter : i8 = 0;
     loop {
         let guess = take_user_guess();
+
+        counter = counter + 1;
 
         match guess.cmp(&val) {
             Ordering::Less => println!("Too small ..."),
             Ordering::Greater => println!("Too big ..."),
             Ordering::Equal => {
                 println!("Well done !");
+                println!("Success after {} attempts.", counter);
                 break;
             }
         }
@@ -44,6 +48,7 @@ fn play(val: u32) {
 }
 
 fn main() {
-    println!("Hello, POTATO!");
+    println!(" ***** Guess the number ******");
+    println!(" ***** Between 1 and 100 *****");
     play(a_random_number());
 }
