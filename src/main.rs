@@ -8,18 +8,29 @@ fn a_random_number() -> u32 {
     rand::thread_rng().gen_range(1, 101)
 }
 
-fn play(val: u32) {
+fn take_user_guess() -> u32 {
+    println!("Take your guess:");
+
     loop {
         let mut guess = String::new();
-
-        println!("Take your guess!");
         io::stdin().read_line(&mut guess)
             .expect("Failed to get input!");
 
-        let guess: u32 = match guess.trim().parse() {
-            Ok(num) => num,
-            Err(_) => continue,
+        match guess.trim().parse() {
+            Ok(val) => {
+                return val;
+            },
+            Err(_) => {
+                println!("Not a number, please insert a number:");
+                continue;
+            }
         };
+    }
+}
+
+fn play(val: u32) {
+    loop {
+        let guess = take_user_guess();
 
         match guess.cmp(&val) {
             Ordering::Less => println!("Too small ..."),
